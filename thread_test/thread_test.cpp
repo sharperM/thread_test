@@ -12,6 +12,8 @@
 #define CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+#include <shlwapi.h >
+#pragma comment(lib, "Ws2_32.lib")
 
 long g_x = 0;
 using namespace std;
@@ -55,21 +57,36 @@ UINT WINAPI ThreadFunc3 (PVOID pvParam)
 	_endthreadex( 0 );
 	return 0;
 }
-
+DWORD WINAPI SendThread (PVOID pvParam)
+{
+	char buf[100]  ;
+	memcpy(buf,"Œ“‘⁄¥ÚΩ¥”Õ£¨Ω¥”Õ£¨”Õ°≠°≠°≠°≠°≠°≠°≠°≠°≠°≠%d\n",100);
+	SOCKET ConnectSocket = INVALID_SOCKET;
+	struct sockaddr_in serviceAddr;
+	ConnectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	serviceAddr.sin_family = AF_INET;
+	serviceAddr.sin_addr.s_addr = inet_addr( "127.0.0.1" );
+	serviceAddr.sin_port = htons( 27015 );
+	connect( ConnectSocket, (SOCKADDR*) &serviceAddr, sizeof(serviceAddr) );
+	if (SOCKET_ERROR == send(ConnectSocket,(const char*)buf,sizeof(buf),0))
+		return 0;
+	shutdown(ConnectSocket,1);
+	SOCKET * pSock = (SOCKET*) pvParam;
+	
+	closesocket(ConnectSocket);
+	return 0;
+}
 
 VOID SuspenProcess(DWORD dwProcessID, BOOL fSuspend)
 {
-	
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD,dwProcessID);
 
 	if ( hSnapshot != INVALID_HANDLE_VALUE )
 	{
-
 		THREADENTRY32 te = {sizeof (te)};
 		BOOL fOk = Thread32First(hSnapshot, &te );
 		for (; fOk; fOk = Thread32Next(hSnapshot, &te))
 		{
-
 			HANDLE hThread = OpenThread( THREAD_SUSPEND_RESUME, FALSE, te.th32ThreadID);
 			if ( hThread != NULL )
 			{
@@ -83,37 +100,12 @@ VOID SuspenProcess(DWORD dwProcessID, BOOL fSuspend)
 		}
 		CloseHandle(hSnapshot);
 	}
-
 }
 
-//
-//int _tmain(int argc, _TCHAR* argv[])
-//{
-//	STARTUPINFO si = {sizeof (si)};
-//	PROCESS_INFORMATION pi;
-//	DWORD dwExitCode;
-//	TCHAR szCommandLine[] = TEXT("WORDPAD C:\\Documents and Settings\\Administrator\\◊¿√Ê\\¬Û…‹≈‡\\Notepad2_CN\\License.txt");
-//	bool bIsSucess = CreateProcess(TEXT("C:\\Documents and Settings\\Administrator\\◊¿√Ê\\¬Û…‹≈‡\\Notepad2_CN\\Notepad2.exe"),szCommandLine,NULL,NULL,
-//		FALSE,0,NULL,NULL,&si,&pi);
-//// 	TCHAR szCommandLine[] = TEXT("WORDPAD C:\\Documents and Settings\\Administrator\\◊¿√Ê\\¬Û…‹≈‡\\Notepad2_CN\\License.txt");
-//// 	CreateProcess(TEXT("D:\\My Documents\\Visual Studio 2010\\Projects\\thread_test\\Debug\\thread_test.exe"),szCommandLine,NULL,NULL,
-//// 	FALSE,0,NULL,NULL,&si,&pi);
-//	std::cout << pi.dwProcessId << std::endl;
-//	if ( bIsSucess )
-//	{
-//		CloseHandle(pi.hThread);
-//		CloseHandle(pi.hProcess);
-//// 		WaitForSingleObject(pi.hProcess,INFINITE);
-//// 		GetExitCodeProcess(pi.hProcess, &dwExitCode);		
-//	}
-//	return 0;
-//}
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LoadLibrary(TEXT("Ws2_32.lib"));
-
 	int x = 0;
 	UINT nThreadId1,nThreadId2;
 	DWORD dwThreadId1,dwThreadId2 ;
@@ -125,8 +117,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 // 	CloseHandle(hThread1);
 	CloseHandle(hThread2);
-	malloc(100);
 	std::string* pStr = new std::string();
+	delete pStr;
 	hThread3 =(HANDLE) _beginthreadex(NULL,0,&ThreadFunc3,(PVOID)&x,0 , &nThreadId1);
 	WaitForSingleObject( hThread3, INFINITE );
 	CloseHandle(hThread3);
@@ -148,14 +140,25 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	struct sockaddr_in sa;
 	sa.sin_family			= AF_INET;
-	sa.sin_port				= htons (IPPORT_TIMESERVER);
-	sa.sin_addr.S_un.S_addr = inet_addr("132.163.135.130");
+	sa.sin_port				= htons (27015);
+	sa.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
 	SOCKET sock				= socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	connect( sock, (SOCKADDR *)&sa, sizeof(sa));
 	unsigned long			ulTime;
-	recv (sock, (char *) &ulTime, 4, MSG_PEEK) ; 
-	int iSize = recv (sock, (char *) &ulTime, 4, 0) ; 
-	ulTime = ntohl (ulTime) ;
+	for (int i = 0; i<100; ++i)
+	{
+		CloseHandle(CreateThread(NULL,0,SendThread,(PVOID)&i, 0, &dwThreadId2));
+
+// 		SendThread(&i);
+		printf("∑¢ÀÕµ⁄%d¥Œ\n",i);
+
+// 		Sleep(100);
+		
+	}
+	closesocket(sock);
+// 	int iSize = recv (sock, (char *) &ulTime, 4, 0) ; 
+// 	ulTime = ntohl (ulTime) ;
+	
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

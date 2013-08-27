@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thread_test", "thread_test\thread_test.vcxproj", "{8C5569BE-C8D9-4BD4-A2B3-3CC71956D571}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiThreadInternetServer", "MultiThreadInternetServer\MultiThreadInternetServer.vcxproj", "{97DC9263-4031-447E-8FD9-19DA03A073D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{8C5569BE-C8D9-4BD4-A2B3-3CC71956D571}.Debug|Win32.Build.0 = Debug|Win32
 		{8C5569BE-C8D9-4BD4-A2B3-3CC71956D571}.Release|Win32.ActiveCfg = Release|Win32
 		{8C5569BE-C8D9-4BD4-A2B3-3CC71956D571}.Release|Win32.Build.0 = Release|Win32
+		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Debug|Win32.Build.0 = Debug|Win32
+		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Release|Win32.ActiveCfg = Release|Win32
+		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
