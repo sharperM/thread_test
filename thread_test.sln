@@ -5,6 +5,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thread_test", "thread_test\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiThreadInternetServer", "MultiThreadInternetServer\MultiThreadInternetServer.vcxproj", "{97DC9263-4031-447E-8FD9-19DA03A073D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_Winhttp", "test_Winhttp\test_Winhttp.vcxproj", "{73330E72-32E9-4C60-AC71-C227638F9CC6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "windows_httpServer", "windows_httpServer\windows_httpServer.vcxproj", "{7064016B-8075-4B03-9D31-9AAA0AB05FE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +23,14 @@ Global
 		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Debug|Win32.Build.0 = Debug|Win32
 		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Release|Win32.ActiveCfg = Release|Win32
 		{97DC9263-4031-447E-8FD9-19DA03A073D2}.Release|Win32.Build.0 = Release|Win32
+		{73330E72-32E9-4C60-AC71-C227638F9CC6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{73330E72-32E9-4C60-AC71-C227638F9CC6}.Debug|Win32.Build.0 = Debug|Win32
+		{73330E72-32E9-4C60-AC71-C227638F9CC6}.Release|Win32.ActiveCfg = Release|Win32
+		{73330E72-32E9-4C60-AC71-C227638F9CC6}.Release|Win32.Build.0 = Release|Win32
+		{7064016B-8075-4B03-9D31-9AAA0AB05FE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7064016B-8075-4B03-9D31-9AAA0AB05FE8}.Debug|Win32.Build.0 = Debug|Win32
+		{7064016B-8075-4B03-9D31-9AAA0AB05FE8}.Release|Win32.ActiveCfg = Release|Win32
+		{7064016B-8075-4B03-9D31-9AAA0AB05FE8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

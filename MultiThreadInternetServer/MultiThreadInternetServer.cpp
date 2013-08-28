@@ -5,10 +5,12 @@
 #include "MultiThreadInternetServer.h"
 #include <winsock2.h>
 #include <vector>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 #pragma comment(lib, "Ws2_32.lib")
+
 
 void initSocket(SOCKET *sock /*out*/);
 DWORD WINAPI recvThread (PVOID pvParam);
@@ -114,3 +116,5 @@ DWORD WINAPI recvThread (PVOID pvParam)
 	
 	return ret;
 }
+
+
